@@ -15,13 +15,13 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class ProdutosEndpoints {
 
     @Autowired
-    FinanceiroRestClient financeiroRestClient;
+    FinanceiroRestClient produtosService;
 
     @RequestMapping(path="/produtos/categorias", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<String>> getAllCategories() {
 
         //TODO outras acoes da API
 
-        return ResponseEntity.ok(financeiroRestClient.findAll());
+        return ResponseEntity.ok(produtosService.findAll());
     }
 }

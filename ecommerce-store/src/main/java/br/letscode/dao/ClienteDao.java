@@ -3,6 +3,9 @@ package br.letscode.dao;
 import br.letscode.models.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClienteDao extends JpaRepository<Cliente, Long>{
+import java.util.List;
 
+public interface ClienteDao extends JpaRepository<Cliente, Long> {
+
+    List<Cliente> findAllByIdOrEmail(long id, String email); //SELECT * FROM CLIENTE WHERE id = {id} OR email = {email
 }
