@@ -70,15 +70,17 @@
         </dependency>
 
         <!-- Security -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.jsonwebtoken</groupId>-->
-<!--            <artifactId>jjwt</artifactId>-->
-<!--            <version>0.9.1</version>-->
-<!--        </dependency>-->
+        <!-- Assim que a dependencia eh adicionada, TODAS as requisicoes vao automaticamente para a pagina http://localhost:8080/login -->
+        <!-- A opcao logout tambem esta disponivel http://localhost:8080/logout -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
 
     <!-- Test Dependencies -->
         <dependency>

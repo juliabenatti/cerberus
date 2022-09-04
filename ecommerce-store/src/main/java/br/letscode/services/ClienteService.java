@@ -8,7 +8,7 @@ import java.util.List;
 public interface ClienteService {
     List<Cliente> listarTodosClientes();
 
-    boolean novoCliente(ClienteDto cliente);
+    Cliente novoCliente(ClienteDto cliente);
 
     boolean atualizarCliente(Cliente cliente);
 

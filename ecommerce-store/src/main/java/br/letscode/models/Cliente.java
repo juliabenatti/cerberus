@@ -1,5 +1,6 @@
 package br.letscode.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,12 +35,22 @@ public class Cliente {
     @Column(name = "cpf")
     private String cpf;
 
-    public Cliente(String nome, String sobrenome, String email, String sexo, String cpf){
+    //@JsonIgnoreProperties(allowGetters = true)
+    @Column(name="senha")
+    private String senha;
+
+    @Enumerated(EnumType.STRING)
+    private PerfilEnum perfil;
+
+    public Cliente(String nome, String sobrenome, String email, String sexo, String cpf, String senha, PerfilEnum perfil){
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
         this.sexo = sexo;
         this.cpf = cpf;
+        this.senha = senha;
+        this.perfil = perfil;
     }
+
 
 }
