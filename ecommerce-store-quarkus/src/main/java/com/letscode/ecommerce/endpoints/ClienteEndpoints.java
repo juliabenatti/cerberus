@@ -4,6 +4,7 @@ import com.letscode.ecommerce.models.Cliente;
 import com.letscode.ecommerce.services.ClienteService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -21,11 +22,16 @@ public class ClienteEndpoints {
     @Operation(description = "Salvar um cliente")
     @POST
     public Response salvar(@Valid Cliente cliente) {
+        Cliente clienteSalvo = clienteService.salvar(cliente);
+        if (clienteSalvo == null) {
+            return Response.status(400).build();
+        }
         return Response.ok(clienteService.salvar(cliente)).build();
     }
 
     @Operation(description = "Atualizar um cliente")
     @PUT
+    @RolesAllowed("CLIENTE")
     public Response atualizar(@Valid Cliente cliente) {
         return Response.ok(clienteService.atualizar(cliente)).build();
     }
@@ -46,6 +52,7 @@ public class ClienteEndpoints {
     @Operation(description = "Excluir um cliente")
     @DELETE
     @Path("/{id}")
+    @RolesAllowed("ADMIN")
     public void excluir(@PathParam("id") Long id) {
 
         clienteService.excluir(id);
