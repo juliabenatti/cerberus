@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,11 +29,11 @@ public class ClienteEndpoints {
     }
 
     @RequestMapping(path="/cliente", method = RequestMethod.POST)
-    public ResponseEntity novoCliente(@RequestBody ClienteDto cliente) {
-        boolean sucesso = clienteService.novoCliente(cliente);
+    public ResponseEntity<Cliente> novoCliente(@RequestBody ClienteDto cliente) {
+        Cliente clienteSalvo = clienteService.novoCliente(cliente);
 
-        if(sucesso) {
-            return new ResponseEntity("Cliente criado com sucesso!", HttpStatus.CREATED);
+        if(clienteSalvo != null) {
+            return ResponseEntity.ok(clienteSalvo);
         }
         else {
             return new ResponseEntity("Criacao do cliente falhou!", HttpStatus.BAD_REQUEST);
@@ -50,6 +51,7 @@ public class ClienteEndpoints {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(path="/cliente/{id}", method = RequestMethod.DELETE)
     public ResponseEntity removerCliente(@PathVariable long id) {
         boolean sucesso = clienteService.removerCliente(id);
