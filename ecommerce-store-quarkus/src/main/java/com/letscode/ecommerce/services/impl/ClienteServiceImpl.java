@@ -3,6 +3,7 @@ package com.letscode.ecommerce.services.impl;
 import com.letscode.ecommerce.dao.ClienteDao;
 import com.letscode.ecommerce.models.Cliente;
 import com.letscode.ecommerce.models.PerfilEnum;
+import com.letscode.ecommerce.security.PasswordUtils;
 import com.letscode.ecommerce.services.ClienteService;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 
@@ -30,8 +31,13 @@ public class ClienteServiceImpl implements ClienteService {
     @Transactional
     public Cliente salvar(Cliente cliente) {
         cliente.setPerfil(PerfilEnum.CLIENTE);
+        cliente.setSenha(PasswordUtils.encode(cliente.getSenha()));
+        try {
+            clienteDao.persist(cliente);
 
-        clienteDao.persist(cliente);
+        } catch(Exception e) {
+            return null;
+        }
 
         return cliente;
     }
